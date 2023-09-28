@@ -70,6 +70,7 @@ class PokerHand:
         if duplicate_cards:
             raise ValueError
         self.cards = sorted(self.cards)
+        
 
     def __repr__(self):
         card_strings = (str(card) for card in self)
@@ -89,4 +90,16 @@ class PokerHand:
 
     @property
     def rank(self):
+        last_value = None
+        equal_count = 1
+        for card in self.cards:
+            if card.value == last_value:
+                equal_count += 1
+            else:
+                equal_count = 1
+
+            if equal_count == 2:
+                return 'Pair'
+            last_value = card.value
+        
         return 'High Card'
