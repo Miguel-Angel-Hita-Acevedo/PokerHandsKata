@@ -7,5 +7,11 @@ hand = PokerHand('AH AD 8C 4S 7H')
 assert hand.rank == 'Pair', hand.rank
 hand = PokerHand('AH 3D TC 4S 3S')
 assert hand.rank == 'Pair', hand.rank
+
+hand = PokerHand('AH 3D 4C 4S 3S')
+assert hand.rank == 'Two Pair', hand.rank
+
+hand = PokerHand('AH 4D 4C 4S 3S')
+assert hand.rank == 'Three of a Kind', hand.rank
 # keep this at the end - it will only show if all your tests pass
 print('Tests passing!')

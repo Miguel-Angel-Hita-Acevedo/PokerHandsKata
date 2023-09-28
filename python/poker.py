@@ -90,16 +90,49 @@ class PokerHand:
 
     @property
     def rank(self):
-        last_value = None
-        equal_count = 1
-        for card in self.cards:
-            if card.value == last_value:
-                equal_count += 1
-            else:
-                equal_count = 1
-
-            if equal_count == 2:
-                return 'Pair'
-            last_value = card.value
-        
+        cards_dict = self._get_number_of_each_card()
+        if 3 in cards_dict.values():
+            return 'Three of a Kind'
+        if self._has_two_pair(cards_dict):
+            return 'Two Pair'
+        elif 2 in cards_dict.values():
+            return 'Pair'
         return 'High Card'
+    
+    def _has_two_pair(self, cards_dict):
+        n = 0
+        for value in cards_dict.values():
+            if value == 2:
+                n +=1
+        return  n >=2
+    
+    def _get_number_of_each_card(self):
+        last_value = None
+        pairs_count = 0
+        three_count = 0
+        equal_count = 1
+        cards_dict = {}
+        for  card in self.cards:
+            if  card.value in cards_dict.keys():
+                print(1)
+                #cards_dict[card.value] = cards_dict[card.value] + 1
+                cards_dict.update({card.value:cards_dict[card.value]+1})
+
+            else:
+                print(2)
+                cards_dict[card.value] = 1    
+        return cards_dict
+
+
+
+# for card in self.cards:
+#            if card.value == last_value:
+#                equal_count += 1
+#            else:
+#                equal_count = 1
+
+#            if equal_count == 2:
+#                pairs_count += 1
+#            elif equal_count == 3:
+#                three_count += 1
+#            last_value = card.value
