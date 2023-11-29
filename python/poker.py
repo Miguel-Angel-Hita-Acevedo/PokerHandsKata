@@ -6,12 +6,12 @@ HAND_RANKS = (
     'Pair',
     'Two Pair',
     'Three of a Kind',
-    'Straight',
-    'Flush',
-    'Full House',
+    'Straight',# escalera sin importar color
+    'Flush',# color (no necesita ser escalera ni nada)
+    'Full House',# 3 y 2
     'Four of a Kind',
-    'Straight Flush',
-    'Royal Flush'
+    'Straight Flush',# escalera de color
+    'Royal Flush'# 10, J, Q, K, A -> del mismo palo
 )
 
 class Card:
@@ -91,6 +91,8 @@ class PokerHand:
     @property
     def rank(self):
         cards_dict = self._get_number_of_each_card()
+        if 4 in cards_dict.values():
+            return 'Four of a Kind'
         if 3 in cards_dict.values():
             return 'Three of a Kind'
         if self._has_two_pair(cards_dict):
@@ -100,11 +102,11 @@ class PokerHand:
         return 'High Card'
     
     def _has_two_pair(self, cards_dict):
-        n = 0
+        equal_cards = 0
         for value in cards_dict.values():
             if value == 2:
-                n +=1
-        return  n >=2
+                equal_cards +=1
+        return  equal_cards >=2
     
     def _get_number_of_each_card(self):
         last_value = None

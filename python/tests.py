@@ -13,5 +13,7 @@ assert hand.rank == 'Two Pair', hand.rank
 
 hand = PokerHand('AH 4D 4C 4S 3S')
 assert hand.rank == 'Three of a Kind', hand.rank
+hand = PokerHand('AH 4D 4C 4H 4S')
+assert hand.rank == 'Four of a Kind', hand.rank
 # keep this at the end - it will only show if all your tests pass
 print('Tests passing!')
