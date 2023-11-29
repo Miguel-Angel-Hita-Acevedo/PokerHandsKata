@@ -93,12 +93,14 @@ class PokerHand:
         cards_dict = self._get_number_of_each_card()
         if 4 in cards_dict.values():
             return 'Four of a Kind'
-        if 3 in cards_dict.values():
+        elif 3 in cards_dict.values():
             return 'Three of a Kind'
-        if self._has_two_pair(cards_dict):
+        elif self._has_two_pair(cards_dict):
             return 'Two Pair'
         elif 2 in cards_dict.values():
             return 'Pair'
+        elif self._has_straight():
+            return 'Straight'
         return 'High Card'
     
     def _has_two_pair(self, cards_dict):
@@ -108,6 +110,23 @@ class PokerHand:
                 equal_cards +=1
         return  equal_cards >=2
     
+    def _has_straight(self):
+        current_value = 0
+        previous_value = -1
+        combo = 0
+        for card in self.cards:
+            current_value = self._parse_to_numbers(card.value)
+            if current_value != -1 and current_value == (previous_value + 1):
+                combo += 1
+            previous_value = current_value
+        return combo == 4
+
+    def _parse_to_numbers(self, card_value):
+        dict_letters = {'J': 10, 'Q': 11, 'K': 12, 'A': 1}
+        if card_value in dict_letters:
+            return dict_letters.get(card_value)
+        return int(card_value)
+
     def _get_number_of_each_card(self):
         last_value = None
         pairs_count = 0
