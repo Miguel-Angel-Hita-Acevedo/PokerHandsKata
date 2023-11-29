@@ -114,12 +114,10 @@ class PokerHand:
         cards_dict = {}
         for  card in self.cards:
             if  card.value in cards_dict.keys():
-                print(1)
                 #cards_dict[card.value] = cards_dict[card.value] + 1
                 cards_dict.update({card.value:cards_dict[card.value]+1})
 
             else:
-                print(2)
                 cards_dict[card.value] = 1    
         return cards_dict
 
