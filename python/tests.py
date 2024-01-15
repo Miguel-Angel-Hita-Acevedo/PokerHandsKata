@@ -38,5 +38,8 @@ assert hand.rank == 'Straight Flush', hand.rank
 hand = PokerHand('AH 5H 2H 3H 4H')
 assert hand.rank == 'Straight Flush', hand.rank
 
+hand = PokerHand('AH JH QH 9H KH')
+assert hand.rank == 'Royal Flush', hand.rank
+
 # keep this at the end - it will only show if all your tests pass
 print('Tests passing!')

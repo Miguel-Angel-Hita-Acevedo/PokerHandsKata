@@ -97,6 +97,8 @@ class PokerHand:
         
         if self._has_straight():
             if self._its_flush():
+                if self.cards[0].value == 9:
+                    return 'Royal Flush'
                 return 'Straight Flush'
             return 'Straight'
         
@@ -132,14 +134,14 @@ class PokerHand:
             card.value = self._parse_to_numbers(card.value)
             if card.value != -1 and card.value == (previous_value + 1):
                 combo += 1
-            if combo == 3 and self.cards[0].value == 2 and self.cards[self.cards.__len__() - 1].value == 1:
+            if combo == 3 and self.cards[0].value == 2 and self.cards[self.cards.__len__() - 1].value == 13:
                 combo += 1
             previous_value = card.value
             
         return combo == 4
 
     def _parse_to_numbers(self, card_value):
-        dict_letters = {'J': 10, 'Q': 11, 'K': 12, 'A': 1}
+        dict_letters = {'J': 10, 'Q': 11, 'K': 12, 'A': 13}
         if card_value in dict_letters:
             return dict_letters.get(card_value)
         return int(card_value)
