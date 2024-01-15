@@ -91,11 +91,11 @@ class PokerHand:
     @property
     def rank(self):
         cards_dict = self._get_number_of_each_card()
-        
+        if self._its_flush():
+            return "Flush"  
         number_of_kind = self._same_of_kind(cards_dict)
         if number_of_kind:
             return number_of_kind
-
         if self._has_straight():
             return 'Straight'
         
@@ -105,6 +105,8 @@ class PokerHand:
         if 4 in cards_dict.values():
             return 'Four of a Kind'
         elif 3 in cards_dict.values():
+            if 2 in cards_dict.values():
+                return 'Full House'
             return 'Three of a Kind'
         elif self._has_two_pair(cards_dict):
             return 'Two Pair'
@@ -150,17 +152,13 @@ class PokerHand:
             else:
                 cards_dict[card.value] = 1    
         return cards_dict
-
-
-
-# for card in self.cards:
-#            if card.value == last_value:
-#                equal_count += 1
-#            else:
-#                equal_count = 1
-
-#            if equal_count == 2:
-#                pairs_count += 1
-#            elif equal_count == 3:
-#                three_count += 1
-#            last_value = card.value
+    
+    def _its_flush(self):
+        last_color = ''
+        count = 5
+        
+        for card in self.cards:
+            if card.suit != last_color and last_color != '':
+                return 
+            last_color = card.suit
+        return True

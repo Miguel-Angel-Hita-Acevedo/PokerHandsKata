@@ -20,8 +20,11 @@ assert hand.rank == 'Straight', hand.rank
 hand = PokerHand('9D JC 8S 6H 7C')
 assert hand.rank == 'Straight', hand.rank
 
-#hand = PokerHand('AH 1H 2H 4H 4H')
-#assert hasnd.rank == 'Flush', hand.rank
+#hand = PokerHand('AH 1H 2H 8H 4H')
+#assert hand.rank == 'Flush', hand.rank
+
+hand = PokerHand('AH AD 3H 3D 3C')
+assert hand.rank == 'Full House', hand.rank
 
 hand = PokerHand('AH 4D 4C 4H 4S')
 assert hand.rank == 'Four of a Kind', hand.rank
