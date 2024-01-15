@@ -90,14 +90,18 @@ class PokerHand:
 
     @property
     def rank(self):
-        cards_dict = self._get_number_of_each_card()
-        if self._its_flush():
-            return "Flush"  
+        cards_dict = self._get_number_of_each_card() 
         number_of_kind = self._same_of_kind(cards_dict)
         if number_of_kind:
             return number_of_kind
+        
         if self._has_straight():
+            if self._its_flush():
+                return 'Straight Flush'
             return 'Straight'
+        
+        if self._its_flush():
+            return 'Flush' 
         
         return 'High Card'
     
@@ -128,7 +132,10 @@ class PokerHand:
             card.value = self._parse_to_numbers(card.value)
             if card.value != -1 and card.value == (previous_value + 1):
                 combo += 1
+            if combo == 3 and self.cards[0].value == 2 and self.cards[self.cards.__len__() - 1].value == 1:
+                combo += 1
             previous_value = card.value
+            
         return combo == 4
 
     def _parse_to_numbers(self, card_value):
@@ -155,7 +162,6 @@ class PokerHand:
     
     def _its_flush(self):
         last_color = ''
-        count = 5
         
         for card in self.cards:
             if card.suit != last_color and last_color != '':
