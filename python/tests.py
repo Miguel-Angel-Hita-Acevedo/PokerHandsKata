@@ -19,6 +19,11 @@ assert hand.rank == 'Three of a Kind', hand.rank
 hand = PokerHand('2D 5H 4D 6S 3H')
 assert hand.rank == 'Straight', hand.rank
 
+hand = PokerHand('2D 5H 4D AS 3H')
+assert hand.rank == 'Straight', hand.rank
+
+hand = PokerHand('KD QH JD 9S AH')
+assert hand.rank == 'Straight', hand.rank
 hand = PokerHand('9D JC 8S 6H 7C')
 assert hand.rank == 'Straight', hand.rank
 

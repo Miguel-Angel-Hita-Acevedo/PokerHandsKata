@@ -129,17 +129,21 @@ class PokerHand:
     
     def _has_straight(self):
         previous_value = -1
-        combo = 0
+        consecutive_cards = 1
         for card in self.cards:
             card.value = self._parse_to_numbers(card.value)
             if card.value != -1 and card.value == (previous_value + 1):
-                combo += 1
-            if combo == 3 and self.cards[0].value == 2 and self.cards[self.cards.__len__() - 1].value == 13:
-                combo += 1
+                consecutive_cards += 1
             previous_value = card.value
-            
-        return combo == 4
 
+        if self.is_straight_with_as():
+            consecutive_cards += 1
+            
+        return consecutive_cards == 5
+
+    def is_straight_with_as(self):
+        return self.cards[0].value == 2 and self.cards[self.cards.__len__() - 1].value == 13
+        
     def _parse_to_numbers(self, card_value):
         dict_letters = {'J': 10, 'Q': 11, 'K': 12, 'A': 13}
         if card_value in dict_letters:
