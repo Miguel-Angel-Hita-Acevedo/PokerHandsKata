@@ -113,18 +113,22 @@ class PokerHand:
         return 'Straight Flush'
         
 
-    def _same_of_kind(self,cards_dict ):
-        if 4 in cards_dict.values():
-            return 'Four of a Kind'
-        elif 3 in cards_dict.values():
+    def _same_of_kind(self,cards_dict ):  
+        posible_results =  {4: "Four of a Kind", 3: self._is_three_of_a_king(cards_dict), 2: "Pair"}
+
+        if self._has_two_pair(cards_dict):
+            return 'Two Pair'
+
+        for key, value in posible_results.items():
+            if key  in cards_dict.values():
+                return value
+        return None
+    
+    def _is_three_of_a_king(self, cards_dict):
+        if 3 in cards_dict.values():
             if 2 in cards_dict.values():
                 return 'Full House'
             return 'Three of a Kind'
-        elif self._has_two_pair(cards_dict):
-            return 'Two Pair'
-        elif 2 in cards_dict.values():
-            return 'Pair'
-        return None
     
     def _has_two_pair(self, cards_dict):
         equal_cards = 0
