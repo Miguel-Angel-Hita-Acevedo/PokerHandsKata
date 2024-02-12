@@ -91,22 +91,28 @@ class PokerHand:
     @property
     def rank(self):
         cards_dict = self._get_number_of_each_card() 
-        number_of_kind = self._same_of_kind(cards_dict)
-        if number_of_kind:
+        
+        if number_of_kind:= self._same_of_kind(cards_dict):
             return number_of_kind
         
-        if self._has_straight():
-            if self._its_flush():
-                if self.cards[0].value == 9:
-                    return 'Royal Flush'
-                return 'Straight Flush'
-            return 'Straight'
+        if type_straight := self.type_of_straight():
+            return type_straight
         
         if self._its_flush():
             return 'Flush' 
         
         return 'High Card'
     
+    def type_of_straight(self):
+        if not self._has_straight():
+            return False
+        if not self._its_flush():
+            return 'Straight'
+        if self.cards[0].value == 9:
+            return 'Royal Flush'
+        return 'Straight Flush'
+        
+
     def _same_of_kind(self,cards_dict ):
         if 4 in cards_dict.values():
             return 'Four of a Kind'
